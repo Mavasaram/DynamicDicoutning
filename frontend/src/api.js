@@ -3,8 +3,15 @@ import axios from 'axios'
 const BASE = '/api'
 
 export async function fetchSampleAnalysis() {
-  const { data } = await axios.get(`${BASE}/sample`)
-  return data
+  try {
+    // Works locally when FastAPI backend is running (via Vite proxy)
+    const { data } = await axios.get(`${BASE}/sample`, { timeout: 4000 })
+    return data
+  } catch {
+    // Fallback: static pre-computed JSON bundled with the frontend (works on Vercel)
+    const { data } = await axios.get('/sample_data.json')
+    return data
+  }
 }
 
 export async function uploadAndProcess(invoicePdf, contractPdf, invoicesXlsx) {
