@@ -31,8 +31,8 @@ export default function Renegotiation({ data }) {
         {/* Analysis table */}
         <div>
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Renegotiation Analysis</p>
-          <div className="overflow-hidden rounded-lg border border-navy-700">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto rounded-lg border border-navy-700">
+            <table className="w-full min-w-[280px] text-sm">
               <tbody>
                 {fields.map(({ label, value, warn }, i) => (
                   <motion.tr

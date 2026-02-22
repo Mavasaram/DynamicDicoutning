@@ -37,8 +37,8 @@ export default function ApprovalWorkflow({ data }) {
         {/* Details table */}
         <div>
           <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Approval Workflow Details</p>
-          <div className="overflow-hidden rounded-lg border border-navy-700">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto rounded-lg border border-navy-700">
+            <table className="w-full min-w-[320px] text-sm">
               <tbody>
                 {details.map(({ label, value }, i) => (
                   <tr key={label} className="tbl-row">

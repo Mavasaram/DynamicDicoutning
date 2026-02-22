@@ -14,7 +14,7 @@ function KpiCard({ label, value, target, unit = '', color = 'text-white', good }
   return (
     <div className="metric-card">
       <p className="text-xs text-slate-500 truncate">{label}</p>
-      <p className={`text-xl font-bold mono ${color}`}>{value}{unit}</p>
+      <p className={`text-lg sm:text-xl font-bold mono ${color}`}>{value}{unit}</p>
       {target && (
         <p className={`text-xs ${good ? 'text-green-400' : 'text-slate-500'}`}>
           {good ? '✓ ' : ''}Target: {target}
@@ -66,7 +66,7 @@ export default function Reconciliation({ data }) {
 
       {/* Trend charts */}
       {data.monthly_trend && (
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">DPO Trend</p>
             <ResponsiveContainer width="100%" height={200}>

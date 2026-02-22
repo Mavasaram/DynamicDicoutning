@@ -33,10 +33,10 @@ export default function ExceptionHandling({ data }) {
               transition={{ delay: i * 0.07 }}
               className="flex items-center gap-3 card-sm"
             >
-              <span className="text-xl shrink-0">{icon}</span>
-              <div className="flex-1 flex justify-between items-center">
-                <span className="text-sm text-slate-400">{label}</span>
-                <span className={`text-sm font-semibold ${color}`}>{value}</span>
+              <span className="text-lg sm:text-xl shrink-0">{icon}</span>
+              <div className="flex-1 flex flex-wrap justify-between items-center gap-x-2 gap-y-0.5">
+                <span className="text-xs sm:text-sm text-slate-400">{label}</span>
+                <span className={`text-xs sm:text-sm font-semibold text-right ${color}`}>{value}</span>
               </div>
             </motion.div>
           ))}

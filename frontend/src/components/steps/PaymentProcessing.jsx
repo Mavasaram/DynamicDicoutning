@@ -32,8 +32,8 @@ export default function PaymentProcessing({ data }) {
 
       <div className="grid md:grid-cols-2 gap-6">
         <div>
-          <div className="overflow-hidden rounded-lg border border-navy-700">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto rounded-lg border border-navy-700">
+            <table className="w-full min-w-[340px] text-sm">
               <tbody>
                 {fields.map(({ label, value, icon, highlight, green, status, bold }, i) => (
                   <motion.tr
@@ -43,8 +43,8 @@ export default function PaymentProcessing({ data }) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.06 }}
                   >
-                    <td className="tbl-cell text-slate-400 w-44">
-                      <span className="mr-2">{icon}</span>{label}
+                    <td className="tbl-cell text-slate-400 w-32 sm:w-44 whitespace-nowrap">
+                      <span className="mr-1 sm:mr-2">{icon}</span>{label}
                     </td>
                     <td className={`tbl-cell mono font-medium ${
                       green    ? 'text-green-400' :

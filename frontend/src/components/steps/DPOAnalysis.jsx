@@ -51,7 +51,7 @@ export default function DPOAnalysis({ dpo, discount }) {
       </p>
 
       {/* DPO improvement banner */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
         {[
           { label: 'Current DPO', value: `${dpo.dpo_current} days`, sub: 'Company average', color: 'text-slate-300' },
           { label: 'DPO if Discount', value: `${dpo.dpo_if_discount} days`, sub: 'After early payment', color: 'text-gold-400' },
@@ -63,9 +63,9 @@ export default function DPOAnalysis({ dpo, discount }) {
             animate={{ opacity: 1, y: 0 }}
             className="metric-card text-center"
           >
-            <p className="text-xs text-slate-500">{label}</p>
-            <p className={`text-2xl font-bold mono ${color}`}>{value}</p>
-            <p className="text-xs text-slate-600">{sub}</p>
+            <p className="text-xs text-slate-500 truncate">{label}</p>
+            <p className={`text-lg sm:text-2xl font-bold mono ${color}`}>{value}</p>
+            <p className="text-xs text-slate-600 hidden sm:block">{sub}</p>
           </motion.div>
         ))}
       </div>
@@ -86,9 +86,9 @@ export default function DPOAnalysis({ dpo, discount }) {
             </div>
             <div className="divide-y divide-navy-800">
               {col.rows.map(({ label, value }) => (
-                <div key={label} className="flex justify-between items-center px-4 py-2.5">
-                  <span className="text-xs text-slate-500">{label}</span>
-                  <span className={`text-sm font-medium mono ${
+                <div key={label} className="flex justify-between items-center px-3 py-2 sm:px-4 sm:py-2.5 gap-2">
+                  <span className="text-xs text-slate-500 shrink-0">{label}</span>
+                  <span className={`text-xs sm:text-sm font-medium mono text-right ${
                     label === 'AI Assessment' && value === 'RECOMMENDED'
                       ? 'text-green-400 font-bold'
                       : col.color && label !== 'AI Assessment'

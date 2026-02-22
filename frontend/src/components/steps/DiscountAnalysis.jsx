@@ -210,15 +210,15 @@ export default function DiscountAnalysis({ analysis }) {
       <motion.div
         initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
-        className={`rounded-xl border p-5 flex items-start gap-4 ${
+        className={`rounded-xl border p-4 sm:p-5 flex items-start gap-3 sm:gap-4 ${
           analysis.recommendation === 'TAKE DISCOUNT'
             ? 'bg-green-900/20 border-green-700/50'
             : 'bg-slate-800/50 border-slate-700'
         }`}
       >
-        <span className="text-3xl mt-0.5">{analysis.recommendation === 'TAKE DISCOUNT' ? '✅' : '📋'}</span>
-        <div className="flex-1">
-          <p className="font-bold text-lg text-white">
+        <span className="text-2xl sm:text-3xl mt-0.5 shrink-0">{analysis.recommendation === 'TAKE DISCOUNT' ? '✅' : '📋'}</span>
+        <div className="flex-1 min-w-0">
+          <p className="font-bold text-base sm:text-lg text-white">
             AI Recommendation: <span className={analysis.recommendation === 'TAKE DISCOUNT' ? 'text-green-400' : 'text-slate-400'}>
               {analysis.recommendation}
             </span>
