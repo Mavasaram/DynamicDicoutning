@@ -13,7 +13,7 @@ export default function Header({ mode, onReset }) {
       <div className="flex items-center gap-4">
         <div className="hidden sm:flex items-center gap-1.5">
           <span className="text-xs text-slate-500">Powered by</span>
-          <span className="text-xs font-semibold text-gold-400">Pinnacle Global Solutions LLC</span>
+          <span className="text-xs font-semibold text-gold-400">CognixOne.ai</span>
         </div>
         {mode === 'results' && (
           <button
