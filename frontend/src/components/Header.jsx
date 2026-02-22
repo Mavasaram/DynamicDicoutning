@@ -7,14 +7,12 @@ export default function Header({ mode, onReset }) {
           <h1 className="text-white font-bold text-base leading-tight">
             Payable Agent <span className="text-gold-400">AI</span>
           </h1>
-          <p className="text-slate-500 text-xs">Dynamic Discounting Platform</p>
+          <p className="text-slate-500 text-xs">
+            by <span className="text-gold-400 font-semibold">CognixOne.ai</span>
+          </p>
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <div className="hidden sm:flex items-center gap-1.5">
-          <span className="text-xs text-slate-500">Powered by</span>
-          <span className="text-xs font-semibold text-gold-400">CognixOne.ai</span>
-        </div>
         {mode === 'results' && (
           <button
             onClick={onReset}

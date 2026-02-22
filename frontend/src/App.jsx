@@ -18,15 +18,15 @@ import PaymentProcessing from './components/steps/PaymentProcessing'
 import Reconciliation from './components/steps/Reconciliation'
 
 const STEPS = [
-  { id: 'invoice',      label: 'Invoice Capture',         icon: '📄' },
-  { id: 'verification', label: 'Payment Terms Verify',     icon: '🔍' },
-  { id: 'discount',     label: 'Discount Analysis',        icon: '💰' },
-  { id: 'dpo',          label: 'DPO & Working Capital',    icon: '📊' },
-  { id: 'renegotiation',label: 'Term Renegotiation',       icon: '🤝' },
-  { id: 'approval',     label: 'Approval Routing',         icon: '✅' },
-  { id: 'escalation',   label: 'Exception Handling',       icon: '🚨' },
-  { id: 'payment',      label: 'Payment Processing',       icon: '💳' },
-  { id: 'reconciliation',label: 'Reconciliation & KPIs',   icon: '📈' },
+  { id: 'invoice',       label: 'Invoice Capture',        icon: '📄' },
+  { id: 'verification',  label: 'Verify Payment Terms',   icon: '🔍' },
+  { id: 'discount',      label: 'Discount Analysis',      icon: '💰' },
+  { id: 'dpo',           label: 'DPO & Working Capital',  icon: '📊' },
+  { id: 'renegotiation', label: 'Term Renegotiation',     icon: '🤝' },
+  { id: 'approval',      label: 'Approval Routing',       icon: '✅' },
+  { id: 'escalation',    label: 'Exception Handling',     icon: '🚨' },
+  { id: 'payment',       label: 'Payment Processing',     icon: '💳' },
+  { id: 'reconciliation',label: 'Reconciliation & KPIs',  icon: '📈' },
 ]
 
 const PROCESSING_MSGS = [
@@ -56,7 +56,6 @@ export default function App() {
     setCompletedSteps([])
     setError(null)
 
-    // Animate processing steps
     for (let i = 0; i < PROCESSING_MSGS.length; i++) {
       setProcessingStep(i)
       await sleep(420)
@@ -65,14 +64,13 @@ export default function App() {
     try {
       const result = await fetchSampleAnalysis()
       setData(result)
-      // Reveal steps one by one
       for (let i = 0; i < STEPS.length; i++) {
         await sleep(200)
         setCompletedSteps(prev => [...prev, STEPS[i].id])
       }
       setMode('results')
     } catch (e) {
-      setError('Could not reach the backend. Please start the FastAPI server on port 8000.')
+      setError('Could not load analysis data. Please try again.')
       setMode('landing')
     }
   }
@@ -108,16 +106,16 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-navy-950">
+    <div className="h-screen flex flex-col bg-navy-950 overflow-hidden">
       <Header mode={mode} onReset={() => setMode('landing')} />
 
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 min-h-0 flex flex-col">
         <AnimatePresence mode="wait">
           {mode === 'landing' && (
             <motion.div
               key="landing"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="flex-1 flex flex-col items-center justify-center gap-8 px-4 py-16"
+              className="flex-1 min-h-0 overflow-y-auto flex flex-col items-center gap-8 px-4 py-12"
             >
               {/* Hero */}
               <div className="text-center max-w-3xl">
@@ -131,14 +129,22 @@ export default function App() {
                 </p>
               </div>
 
-              {/* Workflow pills */}
-              <div className="flex flex-wrap justify-center gap-2 max-w-2xl">
+              {/* Workflow steps — animation list style */}
+              <div className="w-full max-w-sm space-y-1.5">
                 {STEPS.map((s, i) => (
-                  <span key={s.id} className="flex items-center gap-1.5 bg-navy-800 border border-navy-700 rounded-full px-3 py-1 text-sm text-slate-300">
-                    <span>{s.icon}</span>
-                    <span className="text-slate-400 text-xs">{i + 1}.</span>
-                    {s.label}
-                  </span>
+                  <motion.div
+                    key={s.id}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 }}
+                    className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-navy-800/60 border border-navy-700 text-slate-300 text-sm"
+                  >
+                    <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold border border-navy-600 text-slate-400 shrink-0">
+                      {i + 1}
+                    </span>
+                    <span className="text-base leading-none">{s.icon}</span>
+                    <span>{s.label}</span>
+                  </motion.div>
                 ))}
               </div>
 
@@ -151,13 +157,14 @@ export default function App() {
               {/* Actions */}
               <div className="flex flex-col sm:flex-row gap-4 items-center">
                 <button onClick={runSample} className="btn-primary flex items-center gap-2 text-base">
-                  <span>⚡</span> Load Sample Data & Analyse
+                  <span>⚡</span> Load Sample Data &amp; Analyse
                 </button>
                 <span className="text-slate-600 text-sm">or</span>
                 <span className="text-slate-400 text-sm">Upload your own files below</span>
               </div>
 
               <FileUpload onSubmit={handleUpload} />
+              <div className="h-4" />
             </motion.div>
           )}
 
@@ -165,7 +172,7 @@ export default function App() {
             <motion.div
               key="processing"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="flex-1 flex items-center justify-center"
+              className="flex-1 min-h-0 flex items-center justify-center"
             >
               <ProcessingAnimation
                 steps={PROCESSING_MSGS}
@@ -178,7 +185,7 @@ export default function App() {
             <motion.div
               key="results"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              className="flex-1 flex overflow-hidden"
+              className="flex-1 min-h-0 flex overflow-hidden"
             >
               {/* Sidebar */}
               <WorkflowSidebar
@@ -190,7 +197,7 @@ export default function App() {
               />
 
               {/* Scrollable content */}
-              <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+              <div className="flex-1 min-h-0 overflow-y-auto px-6 py-6 space-y-6">
                 {/* Discrepancy banner */}
                 {data.has_discrepancy && (
                   <motion.div
