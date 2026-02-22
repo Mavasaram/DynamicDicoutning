@@ -3,12 +3,19 @@ import axios from 'axios'
 const BASE = '/api'
 
 export async function fetchSampleAnalysis() {
+  // Always load from the static pre-computed JSON on production (Vercel).
+  // On localhost the Vite proxy forwards /api → FastAPI; on Vercel that path
+  // hits the HTML rewrite (200 OK with HTML), so we skip it entirely and go
+  // straight to the bundled fallback which is always reliable.
   try {
-    // Works locally when FastAPI backend is running (via Vite proxy)
-    const { data } = await axios.get(`${BASE}/sample`, { timeout: 4000 })
+    const { data } = await axios.get(`${BASE}/sample`, { timeout: 3000 })
+    // If Vercel's catch-all rewrite returned the HTML shell instead of JSON,
+    // data will be a string — treat that as a miss and use the static file.
+    if (typeof data !== 'object' || data === null || !data.invoice) {
+      throw new Error('non-json response')
+    }
     return data
   } catch {
-    // Fallback: static pre-computed JSON bundled with the frontend (works on Vercel)
     const { data } = await axios.get('/sample_data.json')
     return data
   }
