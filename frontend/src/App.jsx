@@ -122,6 +122,9 @@ export default function App() {
                 <div className="text-5xl mb-4">🤖</div>
                 <h1 className="text-4xl font-bold text-white mb-3">
                   Payable Agent <span className="text-gold-400">AI</span>
+                  <span className="block text-lg font-normal text-slate-400 mt-1">
+                    by <span className="text-gold-400 font-semibold">CognixOne.ai</span>
+                  </span>
                 </h1>
                 <p className="text-slate-400 text-lg leading-relaxed">
                   AI-powered accounts payable automation — verifies payment terms, evaluates
